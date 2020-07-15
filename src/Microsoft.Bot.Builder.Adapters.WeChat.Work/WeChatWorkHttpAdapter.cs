@@ -27,27 +27,27 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
     /// <summary>
     /// Represents a adapter that can connect a bot to WeChat endpoint.
     /// </summary>
-    public class WeChatHttpAdapter : BotAdapter, IDisposable
+    public class WeChatWorkHttpAdapter : BotAdapter, IDisposable
     {
         /// <summary>
         /// Key to get all response from bot in a single turn.
         /// </summary>
         private const string TurnResponseKey = "turnResponse";
 
-        private readonly WeChatMessageMapper _wechatMessageMapper;
-        private readonly WeChatClient _wechatClient;
+        private readonly WeChatWorkMessageMapper _wechatMessageMapper;
+        private readonly WeChatWorkClient _wechatClient;
         private readonly ILogger _logger;
-        private readonly WeChatSettings _settings;
+        private readonly WeChatWorkSettings _settings;
         private readonly IBackgroundTaskQueue _taskQueue;
-        public WeChatHttpAdapter(
-                    WeChatSettings settings,
+        public WeChatWorkHttpAdapter(
+                    WeChatWorkSettings settings,
                     IStorage storage,
                     IBackgroundTaskQueue taskQueue = null,
                     ILogger logger = null)
         {
             _settings = settings;
-            _wechatClient = new WeChatClient(settings, storage, logger);
-            _wechatMessageMapper = new WeChatMessageMapper(_wechatClient, settings.UploadTemporaryMedia, logger);
+            _wechatClient = new WeChatWorkClient(settings, storage, logger);
+            _wechatMessageMapper = new WeChatWorkMessageMapper(_wechatClient, settings.UploadTemporaryMedia, logger);
             _logger = logger ?? NullLogger.Instance;
             _taskQueue = taskQueue;
         }

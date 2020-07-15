@@ -6,7 +6,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
     /// <summary>
     /// Settings value required by WeChat.
     /// </summary>
-    public class WeChatSettings
+    public class WeChatWorkSettings
     {
         /// <summary>
         /// Gets or sets a value indicating whether upload media as temporary media.

@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.TestBot
 {
-    public class WeChatAdapterWithErrorHandler : WeChatHttpAdapter
+    public class WeChatAdapterWithErrorHandler : WeChatWorkHttpAdapter
     {
-        public WeChatAdapterWithErrorHandler(WeChatSettings settings, IStorage storage, IBackgroundTaskQueue taskQueue, ILogger logger = null, ConversationState conversationState = null, UserState userState = null)
+        public WeChatAdapterWithErrorHandler(WeChatWorkSettings settings, IStorage storage, IBackgroundTaskQueue taskQueue, ILogger logger = null, ConversationState conversationState = null, UserState userState = null)
             : base(settings, storage, taskQueue, logger)
         {
             OnTurnError = async (turnContext, exception) =>

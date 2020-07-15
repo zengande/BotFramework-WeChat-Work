@@ -14,7 +14,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class WeChatClientTest
     {
-        private readonly WeChatClient testClient = MockDataUtility.GetMockWeChatClient();
+        private readonly WeChatWorkClient testClient = MockDataUtility.GetMockWeChatClient();
         private readonly string openId = "testuser";
         private readonly string content = "test";
         private readonly string mediaId = string.Empty;
@@ -34,7 +34,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
             },
         };
 
-        private readonly WeChatSettings settings = new WeChatSettings()
+        private readonly WeChatWorkSettings settings = new WeChatWorkSettings()
         {
             CorpId = "wx77f941c869071d99",
             CorpSecret = "secret",
@@ -44,7 +44,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
         public async Task ClientDisposeTest()
         {
             var storage = new MemoryStorage();
-            var mockClient = new WeChatClient(settings, storage);
+            var mockClient = new WeChatWorkClient(settings, storage);
             await mockClient.SendHttpRequestAsync(HttpMethod.Get, "https://dev.botframework.com");
             mockClient.Dispose();
         }
@@ -53,7 +53,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
         public async Task SendRequestTest()
         {
             var storage = new MemoryStorage();
-            var mockClient = new WeChatClient(settings, storage);
+            var mockClient = new WeChatWorkClient(settings, storage);
             await mockClient.SendHttpRequestAsync(HttpMethod.Get, "https://dev.botframework.com");
             await mockClient.SendHttpRequestAsync(HttpMethod.Get, "https://dev.botframework.com", "mockdata", "testToken");
         }
@@ -62,7 +62,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
         public async Task SendRequestTimeoutTest()
         {
             var storage = new MemoryStorage();
-            var mockClient = new WeChatClient(settings, storage);
+            var mockClient = new WeChatWorkClient(settings, storage);
             await mockClient.SendHttpRequestAsync(HttpMethod.Get, "https://dev.botframework.com", timeout: 1000);
             Thread.Sleep(1500);
         }

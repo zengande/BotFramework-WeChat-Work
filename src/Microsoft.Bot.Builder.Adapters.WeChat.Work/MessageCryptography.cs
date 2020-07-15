@@ -30,7 +30,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
         /// </summary>
         /// <param name="secretInfo">The secret info provide by WeChat.</param>
         /// <param name="settings">The WeChat settings.</param>
-        public MessageCryptography(SecretInfo secretInfo, WeChatSettings settings)
+        public MessageCryptography(SecretInfo secretInfo, WeChatWorkSettings settings)
         {
             if (string.IsNullOrEmpty(settings.EncodingAesKey) || settings.EncodingAesKey.Length != 43)
             {

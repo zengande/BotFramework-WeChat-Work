@@ -12,10 +12,10 @@ using Newtonsoft.Json;
 
 namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
-    internal class MockWeChatClient : WeChatClient
+    internal class MockWeChatClient : WeChatWorkClient
     {
         public MockWeChatClient(
-            WeChatSettings settings,
+            WeChatWorkSettings settings,
             IStorage storage,
             ILogger logger = null)
             : base(settings, storage, logger)

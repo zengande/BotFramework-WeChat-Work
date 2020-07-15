@@ -12,14 +12,14 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class MessageMapperTest
     {
-        private readonly WeChatMessageMapper wechatMessageMapper;
-        private readonly WeChatMessageMapper wechatMessageMapper2;
+        private readonly WeChatWorkMessageMapper wechatMessageMapper;
+        private readonly WeChatWorkMessageMapper wechatMessageMapper2;
 
         public MessageMapperTest()
         {
             var wechatClient = MockDataUtility.GetMockWeChatClient();
-            this.wechatMessageMapper = new WeChatMessageMapper(wechatClient, true);
-            this.wechatMessageMapper2 = new WeChatMessageMapper(wechatClient, false);
+            this.wechatMessageMapper = new WeChatWorkMessageMapper(wechatClient, true);
+            this.wechatMessageMapper2 = new WeChatWorkMessageMapper(wechatClient, false);
         }
 
         [Fact]

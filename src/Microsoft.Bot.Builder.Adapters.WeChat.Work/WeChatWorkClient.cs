@@ -35,20 +35,20 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
     /// <summary>
     /// A WeChat client is used to communicate with WeChat API.
     /// </summary>
-    internal class WeChatClient : IDisposable
+    internal class WeChatWorkClient : IDisposable
     {
         private const string ApiHost = "https://qyapi.weixin.qq.com";
         private static readonly HttpClient HttpClient = new HttpClient();
 
-        private readonly WeChatSettings _settings;
+        private readonly WeChatWorkSettings _settings;
         private readonly ILogger _logger;
         private readonly WeChatAttachmentStorage _attachmentStorage;
         private readonly AccessTokenStorage _tokenStorage;
         private readonly IAttachmentHash _attachmentHash;
         private SemaphoreSlim _semaphore;
 
-        public WeChatClient(
-            WeChatSettings settings,
+        public WeChatWorkClient(
+            WeChatWorkSettings settings,
             IStorage storage,
             ILogger logger = null)
         {

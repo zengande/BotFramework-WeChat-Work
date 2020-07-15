@@ -37,7 +37,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
     /// WeChat message mapper will help create the bot activity and WeChat response.
     /// When deal with the media attachments or cards, mapper will upload the data first to aquire the acceptable media url.
     /// </remarks>
-    internal class WeChatMessageMapper
+    internal class WeChatWorkMessageMapper
     {
         /// <summary>
         /// Key of content source url.
@@ -54,18 +54,18 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
         /// </summary>
         private const string NewLine = "\r\n";
 
-        private readonly WeChatClient _wechatClient;
+        private readonly WeChatWorkClient _wechatClient;
         private readonly ILogger _logger;
         private readonly bool _uploadTemporaryMedia;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WeChatMessageMapper"/> class,
+        /// Initializes a new instance of the <see cref="WeChatWorkMessageMapper"/> class,
         /// using a injected configuration and wechatClient.
         /// </summary>
         /// <param name="uploadTemporaryMedia">The IConfiguration instance need to used by mapper.</param>
         /// <param name="wechatClient">The WeChat client need to be used when need to call WeChat api, like upload media, etc.</param>
         /// <param name="logger">The ILogger implementation this adapter should use.</param>
-        public WeChatMessageMapper(WeChatClient wechatClient, bool uploadTemporaryMedia, ILogger logger = null)
+        public WeChatWorkMessageMapper(WeChatWorkClient wechatClient, bool uploadTemporaryMedia, ILogger logger = null)
         {
             _wechatClient = wechatClient;
             _uploadTemporaryMedia = uploadTemporaryMedia;

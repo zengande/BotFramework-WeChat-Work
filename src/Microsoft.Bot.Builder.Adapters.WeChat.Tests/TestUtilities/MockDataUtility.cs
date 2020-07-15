@@ -311,7 +311,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 
         public const string ImageDataUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAACeCAYAAACvg+F+AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAhdEVYdENyZWF0aW9uIFRpbWUAMjAxOTowMzoxMyAxOTo0Mjo0OBCBEeIAAAG8SURBVHhe7dJBDQAgEMCwA/+egQcmlrSfGdg6z0DE/oUEw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phSTEsKYYlxbCkGJYUw5JiWFIMS4phCZm52U4FOCAVGHQAAAAASUVORK5CYII=";
 
-        public static readonly WeChatSettings WeChatSettings = new WeChatSettings()
+        public static readonly WeChatWorkSettings WeChatSettings = new WeChatWorkSettings()
         {
             Token = "bmwipabotwx",
             EncodingAesKey = "P7PIjIGpA7axbjbffRoWYq7G0BsIaEpqdawIir4KqCt",
@@ -326,7 +326,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
             MessageSignature = "4e17212123b3ce5a6b11643dc658af83fdb54c7",
         };
 
-        public static readonly WeChatSettings WeChatSettingsAesKeyError = new WeChatSettings()
+        public static readonly WeChatWorkSettings WeChatSettingsAesKeyError = new WeChatWorkSettings()
         {
             Token = "bmwipabotwx",
             EncodingAesKey = "bmwipabotwx",
@@ -682,9 +682,9 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
             return attachmentList;
         }
 
-        public static WeChatSettings MockWeChatSettings(bool isTemp = true, bool passiveResponseMode = false)
+        public static WeChatWorkSettings MockWeChatSettings(bool isTemp = true, bool passiveResponseMode = false)
         {
-            return new WeChatSettings
+            return new WeChatWorkSettings
             {
                 Token = "bmwipabotwx",
                 CorpId = "wx77f941c869071d99",
@@ -721,10 +721,10 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
             return uploadResult;
         }
 
-        internal static WeChatClient GetMockWeChatClient()
+        internal static WeChatWorkClient GetMockWeChatClient()
         {
             var storage = new MemoryStorage();
-            var wechatClient = new Mock<WeChatClient>(WeChatSettings, storage, null);
+            var wechatClient = new Mock<WeChatWorkClient>(WeChatSettings, storage, null);
             var result = JsonConvert.SerializeObject(WeChatJsonResult);
             var byteResult = Encoding.UTF8.GetBytes(result);
             wechatClient.Setup(c => c.GetAccessTokenAsync(false)).Returns(Task.FromResult("mockToken"));

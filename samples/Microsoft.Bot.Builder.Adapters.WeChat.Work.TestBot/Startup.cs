@@ -36,9 +36,9 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.TestBot
             services.AddSingleton<ConversationState>();
 
             // Load WeChat settings.
-            var wechatSettings = new WeChatSettings();
+            var wechatSettings = new WeChatWorkSettings();
             Configuration.Bind("WeChatSettings", wechatSettings);
-            services.AddSingleton<WeChatSettings>(wechatSettings);
+            services.AddSingleton<WeChatWorkSettings>(wechatSettings);
 
             // Configure hosted serivce.
             services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();

@@ -22,10 +22,10 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
             var storage = new MemoryStorage();
             var taskQueue = new BackgroundTaskQueue();
             var bot = new EchoBot();
-            var testAdapter1 = new WeChatHttpAdapter(MockDataUtility.MockWeChatSettings(true, false), storage, taskQueue);
-            var testAdapter2 = new WeChatHttpAdapter(MockDataUtility.MockWeChatSettings(false, true), storage, taskQueue);
-            var testAdapter3 = new WeChatHttpAdapter(MockDataUtility.MockWeChatSettings(true, true), storage, taskQueue);
-            var testAdapter4 = new WeChatHttpAdapter(MockDataUtility.MockWeChatSettings(false, false), storage, taskQueue);
+            var testAdapter1 = new WeChatWorkHttpAdapter(MockDataUtility.MockWeChatSettings(true, false), storage, taskQueue);
+            var testAdapter2 = new WeChatWorkHttpAdapter(MockDataUtility.MockWeChatSettings(false, true), storage, taskQueue);
+            var testAdapter3 = new WeChatWorkHttpAdapter(MockDataUtility.MockWeChatSettings(true, true), storage, taskQueue);
+            var testAdapter4 = new WeChatWorkHttpAdapter(MockDataUtility.MockWeChatSettings(false, false), storage, taskQueue);
 
             await testAdapter1.ProcessAsync(request, response, bot, secretInfo);
             await testAdapter2.ProcessAsync(request, response, bot, secretInfo);
@@ -42,8 +42,8 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
             var storage = new MemoryStorage();
             var taskQueue = new BackgroundTaskQueue();
             var bot = new EchoBot();
-            var testAdapter = new WeChatHttpAdapter(MockDataUtility.MockWeChatSettings(true, false), storage, taskQueue);
-            var testAdapter2 = new WeChatHttpAdapter(MockDataUtility.MockWeChatSettings(true, false), storage, null);
+            var testAdapter = new WeChatWorkHttpAdapter(MockDataUtility.MockWeChatSettings(true, false), storage, taskQueue);
+            var testAdapter2 = new WeChatWorkHttpAdapter(MockDataUtility.MockWeChatSettings(true, false), storage, null);
             var nullQueue = await Assert.ThrowsAsync<NullReferenceException>(() => testAdapter2.ProcessAsync(request, response, bot, secretInfo)).ConfigureAwait(false);
             Assert.Equal("Background task queue can not be null.", nullQueue.Message);
             testAdapter2.OnTurnError = (context, exception) => { return Task.CompletedTask; };
