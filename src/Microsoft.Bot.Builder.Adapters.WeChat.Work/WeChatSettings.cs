@@ -57,5 +57,10 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
         /// WeChat app secret.
         /// </value>
         public string CorpSecret { get; set; }
+
+        /// <summary>
+        /// 企业应用 Id
+        /// </summary>
+        public long AgentId { get; set; }
     }
 }

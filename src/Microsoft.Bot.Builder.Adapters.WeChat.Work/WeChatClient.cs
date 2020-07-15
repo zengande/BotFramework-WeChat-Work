@@ -37,7 +37,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
     /// </summary>
     internal class WeChatClient : IDisposable
     {
-        private const string ApiHost = "https://api.weixin.qq.com";
+        private const string ApiHost = "https://qyapi.weixin.qq.com";
         private static readonly HttpClient HttpClient = new HttpClient();
 
         private readonly WeChatSettings _settings;
@@ -101,7 +101,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
         /// <returns>Response content as byte array.</returns>
         public virtual async Task<byte[]> SendHttpRequestAsync(HttpMethod method, string url, object data = null, string token = null, int timeout = 10000)
         {
-            _logger.LogInformation($"Send {method.Method} request to {url}");
+            _logger.LogWarning($"Send {method.Method} request to {url}");
             using (var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMilliseconds(timeout)))
             {
                 var result = await MakeHttpRequestAsync(token, method, url, data, cancellationTokenSource.Token).ConfigureAwait(false);
@@ -243,6 +243,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Image,
                     image = new
@@ -255,6 +256,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Image,
                     image = new
@@ -287,6 +289,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.MPNews,
                     mpnews = new
@@ -299,6 +302,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.MPNews,
                     mpnews = new
@@ -334,6 +338,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Music,
                     music = new
@@ -350,6 +355,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Music,
                     music = new
@@ -385,6 +391,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.News,
                     news = new
@@ -403,6 +410,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.News,
                     news = new
@@ -440,6 +448,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Text,
                     text = new
@@ -452,11 +461,12 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Text,
                     text = new
                     {
-                        content = content,
+                        content,
                     },
                     customservice = new
                     {
@@ -486,6 +496,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Video,
                     video = new
@@ -501,6 +512,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Video,
                     video = new
@@ -535,6 +547,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Voice,
                     voice = new
@@ -547,6 +560,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.Voice,
                     voice = new
@@ -578,6 +592,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.MessageMenu,
                     msgmenu = messageMenu,
@@ -587,6 +602,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             {
                 data = new
                 {
+                    agentid = _settings.AgentId,
                     touser = openId,
                     msgtype = ResponseMessageTypes.MessageMenu,
                     msgmenu = messageMenu,
@@ -599,6 +615,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
 
             return await SendMessageToUser(data, timeout).ConfigureAwait(false);
         }
+
 
         public void Dispose()
         {
@@ -671,9 +688,9 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             }
         }
 
-        private static string GetAccessTokenEndPoint(string appId, string appSecret)
+        private static string GetAccessTokenEndPoint(string corpid, string corpsecret)
         {
-            return $"{ApiHost}/cgi-bin/token?grant_type=client_credential&appid={appId}&secret={appSecret}";
+            return $"{ApiHost}/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}";
         }
 
         /// <summary>
@@ -742,7 +759,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
         private async Task<string> GetMessageApiEndPoint()
         {
             var accessToken = await GetAccessTokenAsync().ConfigureAwait(false);
-            return $"{ApiHost}/cgi-bin/message/custom/send?access_token={accessToken}";
+            return $"{ApiHost}/cgi-bin/message/send?access_token={accessToken}";
         }
 
         private async Task<string> GetUploadMediaEndPoint(string type, bool isTemporaryMedia)
