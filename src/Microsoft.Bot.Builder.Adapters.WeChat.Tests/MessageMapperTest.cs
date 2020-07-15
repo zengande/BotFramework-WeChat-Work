@@ -2,12 +2,13 @@
 // Licensed under the MIT License.
 
 using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.Requests;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.Requests.Events;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Requests;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Requests.Events;
 using Microsoft.Bot.Schema;
 using Xunit;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class MessageMapperTest
     {

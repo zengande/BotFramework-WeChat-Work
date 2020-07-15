@@ -2,12 +2,14 @@
 // Licensed under the MIT License.
 
 using System.Xml.Linq;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.Requests;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.Requests.Events;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Requests;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Requests.Events;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class MessageFactoryTest
     {
@@ -18,7 +20,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Text
                 var doc = XDocument.Parse(MockDataUtility.XmlText);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is TextRequest);
                 MessageBaseTest(result as TextRequest);
                 var textRequest = result as TextRequest;
@@ -29,7 +31,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Image
                 var doc = XDocument.Parse(MockDataUtility.XmlImage);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is ImageRequest);
                 Assert.Equal(RequestMessageTypes.Image, result.MsgType);
                 MessageBaseTest(result as RequestMessage);
@@ -41,7 +43,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Voice
                 var doc = XDocument.Parse(MockDataUtility.XmlVoice);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is VoiceRequest);
                 Assert.Equal(RequestMessageTypes.Voice, result.MsgType);
                 MessageBaseTest(result as RequestMessage);
@@ -53,7 +55,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Video
                 var doc = XDocument.Parse(MockDataUtility.XmlVideo);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is VideoRequest);
                 Assert.Equal(RequestMessageTypes.Video, result.MsgType);
                 MessageBaseTest(result as RequestMessage);
@@ -65,7 +67,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Short Video
                 var doc = XDocument.Parse(MockDataUtility.XmlShortVideo);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is ShortVideoRequest);
                 Assert.Equal(RequestMessageTypes.ShortVideo, result.MsgType);
                 MessageBaseTest(result as RequestMessage);
@@ -77,7 +79,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Location
                 var doc = XDocument.Parse(MockDataUtility.XmlLocation);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is LocationRequest);
                 Assert.Equal(RequestMessageTypes.Location, result.MsgType);
                 MessageBaseTest(result as RequestMessage);
@@ -91,7 +93,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Link
                 var doc = XDocument.Parse(MockDataUtility.XmlLink);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is LinkRequest);
                 Assert.Equal(RequestMessageTypes.Link, result.MsgType);
                 MessageBaseTest(result as RequestMessage);
@@ -104,7 +106,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Click Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventClick);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is ClickEvent);
                 EventBaseTest(result as RequestEvent);
                 var clickEvent = result as ClickEvent;
@@ -116,7 +118,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Location Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventLocation);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is LocationEvent);
                 EventBaseTest(result as RequestEvent);
                 var locationEvent = result as LocationEvent;
@@ -129,7 +131,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // View Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventView);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is ViewEvent);
                 EventBaseTest(result as RequestEvent);
                 var viewEvent = result as ViewEvent;
@@ -140,7 +142,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Subscribe Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventSubscribe);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is SubscribeEvent);
                 EventBaseTest(result as RequestEvent);
                 var subscribeEvent = result as SubscribeEvent;
@@ -152,7 +154,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Scan Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventScan);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is ScanEvent);
                 EventBaseTest(result as RequestEvent);
                 var scanEvent = result as ScanEvent;
@@ -164,7 +166,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // ScanPush Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventScanPush);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is ScanPushEvent);
                 EventBaseTest(result as RequestEvent);
                 var scanPushEvent = result as ScanPushEvent;
@@ -177,7 +179,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // WaitScanPush Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventWaitScanPush);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is WaitScanPushEvent);
                 EventBaseTest(result as RequestEvent);
                 var waitScanPushEvent = result as WaitScanPushEvent;
@@ -190,7 +192,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // Camera Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventCamera);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is CameraEvent);
                 EventBaseTest(result as RequestEvent);
                 var cameraEvent = result as CameraEvent;
@@ -203,7 +205,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // CameraOrAlbum Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventCameraOrAlbum);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is CameraOrAlbumEvent);
                 EventBaseTest(result as RequestEvent);
                 var cameraOrAlbumEvent = result as CameraOrAlbumEvent;
@@ -216,7 +218,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // WeChatAlbum Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventWeChatAlbum);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is WeChatAlbumEvent);
                 EventBaseTest(result as RequestEvent);
                 var wechatAlbumEvent = result as WeChatAlbumEvent;
@@ -229,7 +231,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // SelectLocation Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventSelectLocation);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is SelectLocationEvent);
                 EventBaseTest(result as RequestEvent);
                 var selectLocationEvent = result as SelectLocationEvent;
@@ -245,7 +247,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // ViewMiniProgram Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventViewMiniProgram);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is ViewMiniProgramEvent);
                 EventBaseTest(result as RequestEvent);
                 var viewMiniProgramEvent = result as ViewMiniProgramEvent;
@@ -257,7 +259,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // MassSendJobFinished Event
                 var doc = XDocument.Parse(MockDataUtility.XmlEventMassSendJobFinished);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is MassSendJobFinishedEvent);
                 EventBaseTest(result as RequestEvent);
                 var massSendJobFinishedEvent = result as MassSendJobFinishedEvent;
@@ -284,7 +286,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             {
                 // TemplateSendFinished
                 var doc = XDocument.Parse(MockDataUtility.XmlEventTemplateSendFinished);
-                var result = Schema.WeChatMessageFactory.GetRequestEntity(doc, logger);
+                var result = WeChatMessageFactory.GetRequestEntity(doc, logger);
                 Assert.True(result is TemplateSendFinishedEvent);
                 EventBaseTest(result as RequestEvent);
                 var templateSendFinishedEvent = result as TemplateSendFinishedEvent;
@@ -299,37 +301,37 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
         {
             {
                 // Text
-                var result = Schema.WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.TextResponse);
+                var result = WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.TextResponse);
                 Assert.Equal(MockDataUtility.PassiveXmlText, result);
             }
 
             {
                 // Image
-                var result = Schema.WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.ImageResponse);
+                var result = WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.ImageResponse);
                 Assert.Equal(MockDataUtility.PassiveXmlImage, result);
             }
 
             {
                 // Voice
-                var result = Schema.WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.VoiceResponse);
+                var result = WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.VoiceResponse);
                 Assert.Equal(MockDataUtility.PassiveXmlVoice, result);
             }
 
             {
                 // Video
-                var result = Schema.WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.VideoResponse);
+                var result = WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.VideoResponse);
                 Assert.Equal(MockDataUtility.PassiveXmlVideo, result);
             }
 
             {
                 // Music
-                var result = Schema.WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.MusicResponse);
+                var result = WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.MusicResponse);
                 Assert.Equal(MockDataUtility.PassiveXmlMusic, result);
             }
 
             {
                 // News
-                var result = Schema.WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.NewsResponse);
+                var result = WeChatMessageFactory.ConvertResponseToXml(MockDataUtility.NewsResponse);
                 Assert.Equal(MockDataUtility.PassiveXmlNews, result);
             }
         }

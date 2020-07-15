@@ -72,6 +72,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Helpers
                     using (var xmlWriter = XmlWriter.Create(textWriter, settings))
                     {
                         serializer.Serialize(xmlWriter, entity, nameSpace);
+
                         return textWriter.ToString();
                     }
                 }

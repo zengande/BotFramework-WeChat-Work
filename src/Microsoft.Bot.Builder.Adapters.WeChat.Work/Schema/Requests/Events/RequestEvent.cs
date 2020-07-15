@@ -53,5 +53,8 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Requests.Events
         /// </value>
         [XmlElement(ElementName = "CreateTime")]
         public long CreateTime { get; set; }
+
+        [XmlElement(ElementName ="AgentID")]
+        public long AgentID { get; set; }
     }
 }

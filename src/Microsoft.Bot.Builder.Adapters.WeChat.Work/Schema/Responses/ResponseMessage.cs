@@ -27,8 +27,8 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Responses
         /// <param name="recipientId">The recipient id.</param>
         public ResponseMessage(string senderId, string recipientId)
         {
-            ToUserName = senderId;
-            FromUserName = recipientId;
+            ToUserName = recipientId; 
+            FromUserName = senderId;
             CreateTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
         }
 

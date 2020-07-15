@@ -9,6 +9,7 @@ using System.Text;
 using System.Xml;
 using Microsoft.Bot.Builder.Adapters.WeChat.Work.Helpers;
 using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema;
+using Tencent;
 
 namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
 {
@@ -51,7 +52,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
         /// <returns>Decrypted message string.</returns>
         public string DecryptMessage(string postData)
         {
-            // This should fix the XXE loophole
+            //This should fix the XXE loophole
             var doc = new XmlDocument
             {
                 XmlResolver = null,
@@ -60,11 +61,11 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
             doc.LoadXml(postData);
             var root = doc.FirstChild ?? throw new ArgumentException("Invalid post data.", nameof(postData));
             var encryptMessage = root["Encrypt"]?.InnerText ?? root["encrypt"]?.InnerText ?? throw new ArgumentException("Invalid post data, no encrypted field.", nameof(postData));
-            
-            //if (!VerificationHelper.VerifySignature(_msgSignature, _timestamp, _nonce, encryptMessage))
-            //{
-            //    throw new UnauthorizedAccessException("Signature verification failed.");
-            //}
+
+            if (!VerificationHelper.VerifySignature(_msgSignature, _timestamp, _nonce, _token, encryptMessage))
+            {
+                throw new UnauthorizedAccessException("Signature verification failed.");
+            }
 
             return AesDecrypt(encryptMessage, _encodingAesKey, _corpId);
         }
@@ -76,7 +77,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
         /// <param name="encodingAesKey">Encoding AES key for decrypt message.</param>
         /// <param name="corpId">The WeChat app id.</param>
         /// <returns>Decrypted string.</returns>
-        private static string AesDecrypt(string encryptString, string encodingAesKey, string corpId)
+        public static string AesDecrypt(string encryptString, string encodingAesKey, string corpId)
         {
             var key = Convert.FromBase64String(encodingAesKey + "=");
             var iv = new byte[16];
@@ -157,5 +158,6 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
                 }
             }
         }
+
     }
 }

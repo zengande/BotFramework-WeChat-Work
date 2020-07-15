@@ -38,5 +38,6 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Requests
         /// Message Created time.
         /// </value>
         long CreateTime { get; set; }
+        long AgentID { get; set; }
     }
 }

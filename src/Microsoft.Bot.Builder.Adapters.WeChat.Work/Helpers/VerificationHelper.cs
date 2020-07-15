@@ -19,7 +19,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Helpers
         /// <param name="token">Validation token from WeChat.</param>
         /// <param name="postBody">Request body as string.</param>
         /// <returns>Signature verification result.</returns>
-        public static bool VerifySignature(string signature, string timestamp, string nonce, string postBody = null)
+        public static bool VerifySignature(string signature, string timestamp, string nonce, string token, string postBody = null)
         {
             // token can be null when user did not set its value.
             if (string.IsNullOrEmpty(signature))
@@ -37,37 +37,32 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Helpers
                 throw new ArgumentException("Request validation failed - null Nonce", nameof(nonce));
             }
 
-
-            return signature == GenerateSignature(timestamp, nonce, postBody);
+            return signature == GenerateSignature(timestamp, nonce, token, postBody);
 
         }
+
 
         /// <summary>
         /// Generate signature use the encrypted message.
         /// </summary>
         /// <param name="timestamp">WeChat message timestamp in query params.</param>
         /// <param name="nonce">WeChat message nonce in query params.</param>
+        /// <param name="token">Validation token from WeChat.</param>
         /// <param name="encryptedMessage">The encrypted message content from WeChat request.</param>
         /// <returns>Generated signature.</returns>
-        private static string GenerateSignature(string timestamp, string nonce, string encryptedMessage = null)
+        private static string GenerateSignature(string timestamp, string nonce, string token, string encryptedMessage = null)
         {
-            var arr = string.IsNullOrEmpty(encryptedMessage) ? new[] { timestamp, nonce } : new[] { timestamp, nonce, encryptedMessage };
+            var arr = string.IsNullOrEmpty(encryptedMessage) ? new[] { timestamp, nonce, token } : new[] { timestamp, nonce, token, encryptedMessage };
             Array.Sort(arr, Compare);
             var raw = string.Join(string.Empty, arr);
 
             // WeChat use SHA1 to generate signature.
-            // https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319
-            using (var sha1 = SHA1.Create())
+            using (var sha1 = new SHA1CryptoServiceProvider())
             {
                 var dataToHash = Encoding.ASCII.GetBytes(raw);
                 var dataHashed = sha1.ComputeHash(dataToHash);
-                var signtureBuilder = new StringBuilder();
-                foreach (var bytes in dataHashed)
-                {
-                    signtureBuilder.AppendFormat(CultureInfo.InvariantCulture, "{0:x2}", bytes);
-                }
-
-                return signtureBuilder.ToString();
+                var hash = BitConverter.ToString(dataHashed).Replace("-", "");
+                return hash.ToLower();
             }
         }
 

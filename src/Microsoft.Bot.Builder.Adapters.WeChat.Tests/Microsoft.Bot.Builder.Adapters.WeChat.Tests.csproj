@@ -29,7 +29,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\Microsoft.Bot.Builder.Adapters.WeChat\Microsoft.Bot.Builder.Adapters.WeChat.csproj" />
+    <ProjectReference Include="..\Microsoft.Bot.Builder.Adapters.WeChat.Work\Microsoft.Bot.Builder.Adapters.WeChat.Work.csproj" />
   </ItemGroup>
 
   <ItemGroup>

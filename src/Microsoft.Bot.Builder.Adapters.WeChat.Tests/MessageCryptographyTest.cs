@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using Microsoft.Bot.Builder.Adapters.WeChat.Work;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class MessageCryptographyTest
     {
@@ -20,17 +22,17 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
         }
 
         [Fact]
-        public void EncodingAESKeyTest()
+        public async Task EncodingAESKeyTest()
         {
-            var result = Assert.Throws<ArgumentException>(() => new MessageCryptography(MockDataUtility.SecretInfoAesKeyError, MockDataUtility.WeChatSettingsAesKeyError));
+            var result = await Assert.ThrowsAsync<ArgumentException>(() => Task.FromResult(new MessageCryptography(MockDataUtility.SecretInfoAesKeyError, MockDataUtility.WeChatSettingsAesKeyError)));
             Assert.Equal("Invalid EncodingAESKey.\r\nParameter name: secretInfo", result.Message);
         }
 
         [Fact]
-        public void VerifySignatureTest()
+        public async Task VerifySignatureTest()
         {
             var postData = MockDataUtility.XmlEncrypt;
-            var result = Assert.Throws<UnauthorizedAccessException>(() => MockDataUtility.TestSignature.DecryptMessage(postData));
+            var result = await Assert.ThrowsAsync<UnauthorizedAccessException>(() => Task.FromResult(MockDataUtility.TestSignature.DecryptMessage(postData)));
             Assert.Equal("Signature verification failed.", result.Message);
         }
     }

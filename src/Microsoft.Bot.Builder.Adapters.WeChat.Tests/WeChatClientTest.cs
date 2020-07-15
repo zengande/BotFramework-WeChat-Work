@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.JsonResults;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.JsonResults;
 using Xunit;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class WeChatClientTest
     {
@@ -35,8 +36,8 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
 
         private readonly WeChatSettings settings = new WeChatSettings()
         {
-            AppId = "wx77f941c869071d99",
-            AppSecret = "secret",
+            CorpId = "wx77f941c869071d99",
+            CorpSecret = "secret",
         };
 
         [Fact]

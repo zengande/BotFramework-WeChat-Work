@@ -9,7 +9,7 @@ using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class AdapterTest
     {

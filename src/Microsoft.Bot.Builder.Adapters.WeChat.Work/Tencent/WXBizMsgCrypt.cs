@@ -207,7 +207,7 @@ namespace Tencent
             }
         }
         //Verify Signature
-        private static int VerifySignature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, string sSigture)
+        public static int VerifySignature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, string sSigture)
         {
             string hash = "";
             int ret = 0;

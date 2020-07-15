@@ -4,12 +4,13 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.JsonResults;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.JsonResults;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     internal class MockWeChatClient : WeChatClient
     {

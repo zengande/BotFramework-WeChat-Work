@@ -3,10 +3,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Bot.Builder.Adapters.WeChat.Extensions;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Extensions;
 using Xunit;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class BackgroundTaskTest
     {

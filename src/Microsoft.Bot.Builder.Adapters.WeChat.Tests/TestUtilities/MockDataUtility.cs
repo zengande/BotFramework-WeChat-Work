@@ -7,17 +7,18 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.JsonResults;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.Requests;
-using Microsoft.Bot.Builder.Adapters.WeChat.Schema.Responses;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.JsonResults;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Requests;
+using Microsoft.Bot.Builder.Adapters.WeChat.Work.Schema.Responses;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Newtonsoft.Json;
 
-namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
+namespace Microsoft.Bot.Builder.Adapters.WeChat.Work.Tests
 {
     public class MockDataUtility
     {
@@ -314,7 +315,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
         {
             Token = "bmwipabotwx",
             EncodingAesKey = "P7PIjIGpA7axbjbffRoWYq7G0BsIaEpqdawIir4KqCt",
-            AppId = "wx77f941c869071d99",
+            CorpId = "wx77f941c869071d99",
         };
 
         public static readonly SecretInfo SecretInfoAesKeyError = new SecretInfo()
@@ -329,7 +330,7 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
         {
             Token = "bmwipabotwx",
             EncodingAesKey = "bmwipabotwx",
-            AppId = "wx77f941c869071d99",
+            CorpId = "wx77f941c869071d99",
         };
 
         public static readonly SecretInfo SecretInfoMsgSignatureError = new SecretInfo()
@@ -686,9 +687,9 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Tests
             return new WeChatSettings
             {
                 Token = "bmwipabotwx",
-                AppId = "wx77f941c869071d99",
+                CorpId = "wx77f941c869071d99",
                 EncodingAesKey = "P7PIjIGpA7axbjbffRoWYq7G0BsIaEpqdawIir4KqCt",
-                AppSecret = "secret",
+                CorpSecret = "secret",
                 UploadTemporaryMedia = isTemp,
                 PassiveResponseMode = passiveResponseMode,
             };

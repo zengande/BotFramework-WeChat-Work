@@ -237,22 +237,22 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
                 {
                     throw new UnauthorizedAccessException($"Signature verification failed. Code: {code}");
                 }
-                
+
                 // Return echo string when request is setting up the endpoint.
                 if (!string.IsNullOrEmpty(replayEchoString))
                 {
                     await httpResponse.WriteAsync(replayEchoString, cancellationToken).ConfigureAwait(false);
                     return;
                 }
+            }
 
-                // Directly return OK header to prevent WeChat from retrying.
-                if (!_settings.PassiveResponseMode)
-                {
-                    httpResponse.StatusCode = (int)HttpStatusCode.OK;
-                    httpResponse.ContentType = "text/event-stream";
-                    await httpResponse.WriteAsync(string.Empty).ConfigureAwait(false);
-                    await httpResponse.Body.FlushAsync().ConfigureAwait(false);
-                }
+            // Directly return OK header to prevent WeChat from retrying.
+            if (!_settings.PassiveResponseMode)
+            {
+                httpResponse.StatusCode = (int)HttpStatusCode.OK;
+                httpResponse.ContentType = "text/event-stream";
+                await httpResponse.WriteAsync(string.Empty).ConfigureAwait(false);
+                await httpResponse.Body.FlushAsync().ConfigureAwait(false);
             }
 
             try
@@ -269,7 +269,12 @@ namespace Microsoft.Bot.Builder.Adapters.WeChat.Work
                     httpResponse.StatusCode = (int)HttpStatusCode.OK;
                     httpResponse.ContentType = "text/xml";
                     var xmlString = WeChatMessageFactory.ConvertResponseToXml(wechatResponse);
-                    await httpResponse.WriteAsync(xmlString).ConfigureAwait(false);
+                    var response = string.Empty;
+                    var timestemp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
+                    var nonce = Guid.NewGuid().ToString("N");
+                    new WXBizMsgCrypt(_settings.Token, _settings.EncodingAesKey, _settings.CorpId).EncryptMsg(xmlString, timestemp, nonce, ref response);
+
+                    await httpResponse.WriteAsync(response).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
