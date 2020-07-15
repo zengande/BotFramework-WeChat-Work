@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Version Condition=" '$(ReleasePackageVersion)' == '' ">4.0.0-local</Version>
+    <Version Condition=" '$(ReleasePackageVersion)' == '' ">4.0.0</Version>
     <Version Condition=" '$(ReleasePackageVersion)' != '' ">$(ReleasePackageVersion)</Version>
-    <PackageVersion Condition=" '$(ReleasePackageVersion)' == '' ">4.0.0-local</PackageVersion>
+    <PackageVersion Condition=" '$(ReleasePackageVersion)' == '' ">4.0.0</PackageVersion>
     <PackageVersion Condition=" '$(ReleasePackageVersion)' != '' ">$(ReleasePackageVersion)</PackageVersion>
     <Configurations>Debug;Release</Configurations>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -10,6 +10,16 @@
   
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>BotFramework v4.0 的企业微信适配器</Description>
+    <PackageProjectUrl>https://github.com/zengande/BotFramework-WeChat-Work</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zengande/BotFramework-WeChat-Work</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageId>YunStorm.Bot.Builder.Adapters.WeChat.Work</PackageId>
+    <Authors>zeng ande</Authors>
+    <Product>YunStorm.Bot.Builder.Adapters.WeChat.Work</Product>
+    <Company>yunstorm.com</Company>
+    <Version>4.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
